@@ -1,0 +1,20 @@
+global
+    daemon
+    user haproxy
+    group haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn {{key "service/haproxy/maxconn"}}
+
+defaults
+    option dontlognull
+    retries 3
+    option redispatch
+    mode {{key "service/haproxy/mode"}}{{range ls "service/haproxy/timeouts"}}
+    timeout {{.Key}} {{.Value}}{{end}}
+{{range $key, $pairs := tree "service/haproxy/listen" | byKey}}
+listen {{$key}}
+    bind {{$pairs.bind.Value}}
+    balance {{$pairs.balance.Value}}
+    mode {{$pairs.mode.Value}}{{range service $pairs.service.Value}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+{{end}}
