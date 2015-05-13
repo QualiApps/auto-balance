@@ -29,7 +29,7 @@ You need to add a new key and subkeys into the Consul key/value storage.
 **Example:**
 - add a new app key to the key **service/haproxy/listen** (service/haproxy/listen/**app_key**);
 - then you need to add subkeys to your app_key with values:
-    - key: `bind`, value (*:80) **required**
+    - key: `bind`, value ("*:80") **required**
     - key: `balance`, value (roundrobin, leastconn) Default: roundrobin
     - key: `mode`, value (http, tcp) Default: http
     - key: `service`, value (your service name in the Consul, may be with tag) **required**
