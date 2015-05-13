@@ -20,4 +20,6 @@ COPY ./files/haproxy.cfg /etc/haproxy/haproxy.cfg
 RUN chmod u+x /usr/local/sbin/start_lb.sh \
     /usr/local/sbin/hp_reinit.sh
 
+EXPOSE 1883 15672
+
 ENTRYPOINT [ "/bin/bash", "/usr/local/sbin/start_lb.sh" ]

@@ -12,11 +12,24 @@ Installation
 2. Download automated build from public Docker Hub Registry: `docker pull qapps/auto-balance`
 (alternatively, you can build an image from Dockerfile: `docker build -t="qapps/auto-balance" github.com/qualiapps/auto-balance`)
 
-Running
------------------
+**Running**
 
-`docker run -d -P -v /sys/fs/cgroup:/home/cgroup -v /:/home/disk -h $(hostname) -e "NODE_NAME=$(hostname)" -e "NODE_IP=$(hostname -i)" --link rabbitmq:rmq --name sensuClient qapps/sensu-client`
+`docker run -d -P --name haproxy qapps/auto-balance`
 
-`rabbitmq` - your rabbit container name
+**additional options:**
+- `-e "CONSUL_ADDR=ip"`: ip - consul IP address or DNS name. Default: consul
+- `-e "CONSUL_PORT=port"`: port - consul port: Default: 8500
+- `-p 1883:1883 -p 15672:15672`: two port exposed (1883, 15672)
 
-###Add new access for any app
+
+###Register a new app in HAProxy
+
+You need to add a new key and subkeys into the Consul key/value storage.
+
+**Example:**
+- add a new app key to the key **service/haproxy/listen** (service/haproxy/listen/**app_key**);
+- then you need to add subkeys to your app_key with values:
+    - key: `bind`, value (*:80) **required**
+    - key: `balance`, value (roundrobin, leastconn) Default: roundrobin
+    - key: `mode`, value (http, tcp) Default: http
+    - key: `service`, value (your service name in the Consul, may be with tag) **required**
