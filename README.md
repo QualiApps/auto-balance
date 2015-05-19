@@ -14,7 +14,7 @@ Installation
 
 **Running**
 
-`docker run -d -P --name haproxy qapps/auto-balance`
+`docker run -d -P --name haproxy --restart=on-failure:100 qapps/auto-balance`
 
 **additional options:**
 
