@@ -22,7 +22,7 @@ Installation
 
     `-e "CONSUL_PORT=port"`: port - consul port: Default: 8500
 
-    `-p 1883:1883 -p 15672:15672`: two port exposed (1883, 15672)
+    `-p 1883:1883 -p 15672:15672 -p 5601:5601 -p 3000:3000`: ports exposed (1883, 15672)
 
 
 ###Register a new app in HAProxy
