@@ -23,7 +23,7 @@ class PreInit(object):
     @param env MONITORING_UI_NAME - the dns name of sensu server UI. Default: ui.monitoring
     @param env MONITORING_UI_PORT - Default: 3000
     """
-    consul_service = os.environ.get("CONSUL_SERVICE_NAME", "192.168.56.100")  # consul
+    consul_service = os.environ.get("CONSUL_SERVICE_NAME", "consul")
     ha_main_key = "service/haproxy/"
     ha_key = ha_main_key + "listen/mqtt/balance"
     kv_data = {

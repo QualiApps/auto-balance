@@ -26,4 +26,4 @@ RUN chmod u+x /usr/local/sbin/start_lb.sh \
 
 EXPOSE 1883 15672 3000 5601
 
-ENTRYPOINT [ "/bin/bash", "/usr/local/sbin/start_lb.sh" ]
+ENTRYPOINT [ "python", "/usr/local/sbin/pre_init.py" ]
